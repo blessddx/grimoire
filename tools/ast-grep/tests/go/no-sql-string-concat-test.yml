@@ -1,0 +1,9 @@
+id: no-sql-string-concat
+valid:
+  - 'db.Query("SELECT * FROM users WHERE id = ?", id)'
+  - 'query := "SELECT * FROM users WHERE active = true"'
+invalid:
+  - |
+    query := "SELECT * FROM users WHERE name = '" + name + "'"
+  - |
+    q := "DELETE FROM sessions WHERE user_id = " + uid

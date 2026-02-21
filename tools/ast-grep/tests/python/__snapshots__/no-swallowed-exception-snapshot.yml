@@ -1,0 +1,46 @@
+id: no-swallowed-exception
+snapshots:
+  ? |
+    try:
+        do_something()
+    except Exception:
+        pass
+  : labels:
+    - source: |-
+        except Exception:
+            pass
+      style: primary
+      start: 24
+      end: 50
+    - source: Exception
+      style: secondary
+      start: 31
+      end: 40
+    - source: pass
+      style: secondary
+      start: 46
+      end: 50
+    - source: pass
+      style: secondary
+      start: 46
+      end: 50
+  ? |
+    try:
+        do_something()
+    except:
+        pass
+  : labels:
+    - source: |-
+        except:
+            pass
+      style: primary
+      start: 24
+      end: 40
+    - source: pass
+      style: secondary
+      start: 36
+      end: 40
+    - source: pass
+      style: secondary
+      start: 36
+      end: 40

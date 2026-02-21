@@ -1,0 +1,14 @@
+id: no-unsafe-block
+valid:
+  - let x = safe_function();
+  - |
+    fn process(data: &[u8]) -> Result<()> {
+        Ok(())
+    }
+invalid:
+  - |
+    unsafe {
+        std::ptr::write(ptr, value);
+    }
+  - |
+    let val = unsafe { *raw_ptr };

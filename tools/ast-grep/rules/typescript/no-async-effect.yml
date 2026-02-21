@@ -1,0 +1,15 @@
+id: no-async-effect
+language: tsx
+severity: error
+message: Do not pass an async function directly to useEffect — it returns a Promise, but useEffect expects void or a cleanup function.
+note: Define the async function inside the effect and call it immediately.
+rule:
+  kind: call_expression
+  all:
+    - has:
+        kind: identifier
+        regex: ^useEffect$
+    - has:
+        kind: arguments
+        has:
+          regex: ^async

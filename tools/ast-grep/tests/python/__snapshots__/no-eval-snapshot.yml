@@ -1,0 +1,20 @@
+id: no-eval
+snapshots:
+  eval("2 + 2"):
+    labels:
+    - source: eval("2 + 2")
+      style: primary
+      start: 0
+      end: 13
+  exec(code_string):
+    labels:
+    - source: exec(code_string)
+      style: primary
+      start: 0
+      end: 17
+  result = eval(user_input):
+    labels:
+    - source: eval(user_input)
+      style: primary
+      start: 9
+      end: 25

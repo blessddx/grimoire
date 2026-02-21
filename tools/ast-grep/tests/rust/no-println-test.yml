@@ -1,0 +1,8 @@
+id: no-println
+valid:
+  - 'tracing::info!("server started on {}", addr);'
+  - 'log::debug!("processing request: {:?}", req);'
+invalid:
+  - 'println!("server started");'
+  - 'print!("processing...");'
+  - 'eprintln!("error: {}", e);'

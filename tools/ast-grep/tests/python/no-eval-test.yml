@@ -1,0 +1,8 @@
+id: no-eval
+valid:
+  - import ast; result = ast.literal_eval(data)
+  - result = json.loads(data)
+invalid:
+  - result = eval(user_input)
+  - exec(code_string)
+  - eval("2 + 2")

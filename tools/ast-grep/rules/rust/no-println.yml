@@ -1,0 +1,10 @@
+id: no-println
+language: rust
+severity: warning
+message: Use tracing or log crate instead of println!/print!/eprintln! in production code.
+note: Replace with tracing::info!, tracing::debug!, log::info!, etc.
+rule:
+  any:
+    - pattern: println!($$$ARGS)
+    - pattern: print!($$$ARGS)
+    - pattern: eprintln!($$$ARGS)

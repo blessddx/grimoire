@@ -1,0 +1,23 @@
+id: no-broad-except
+valid:
+  - |
+    try:
+        do_something()
+    except ValueError:
+        handle_error()
+  - |
+    try:
+        do_something()
+    except (KeyError, TypeError) as e:
+        handle_error(e)
+invalid:
+  - |
+    try:
+        do_something()
+    except:
+        handle_error()
+  - |
+    try:
+        do_something()
+    except Exception:
+        handle_error()

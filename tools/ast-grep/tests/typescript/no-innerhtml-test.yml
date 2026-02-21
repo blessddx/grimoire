@@ -1,0 +1,7 @@
+id: no-innerhtml
+valid:
+  - el.textContent = userInput
+  - <div>{sanitized}</div>
+invalid:
+  - el.innerHTML = userInput
+  - document.body.innerHTML = html

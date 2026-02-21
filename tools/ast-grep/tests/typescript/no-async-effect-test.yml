@@ -1,0 +1,21 @@
+id: no-async-effect
+valid:
+  - |
+    useEffect(() => {
+      const load = async () => { await fetchData() }
+      load()
+    }, [])
+  - |
+    useEffect(() => {
+      fetchData().then(setData)
+    }, [])
+invalid:
+  - |
+    useEffect(async () => {
+      await fetchData()
+    }, [])
+  - |
+    useEffect(async () => {
+      const data = await fetch("/api")
+      setData(data)
+    }, [])

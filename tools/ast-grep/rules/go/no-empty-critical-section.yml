@@ -1,0 +1,12 @@
+id: no-empty-critical-section
+language: go
+severity: warning
+message: Mutex Lock() immediately followed by Unlock() with no work in between — likely a bug.
+note: Add the protected operation between Lock() and Unlock(), or remove the mutex usage.
+rule:
+  kind: expression_statement
+  regex: \.Unlock\(\)
+  follows:
+    kind: expression_statement
+    regex: \.Lock\(\)
+    stopBy: neighbor

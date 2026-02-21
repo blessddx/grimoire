@@ -1,0 +1,24 @@
+id: no-todo-in-match
+valid:
+  - |
+    match status {
+        Status::Active => handle_active(),
+        Status::Inactive => handle_inactive(),
+    }
+  - |
+    match color {
+        Color::Red => "red",
+        Color::Blue => "blue",
+        _ => "unknown",
+    }
+invalid:
+  - |
+    match status {
+        Status::Active => handle_active(),
+        Status::Inactive => todo!(),
+    }
+  - |
+    match action {
+        Action::Create => create(),
+        Action::Delete => unimplemented!("delete not yet supported"),
+    }

@@ -1,0 +1,20 @@
+id: no-println
+snapshots:
+  'eprintln!("error: {}", e);':
+    labels:
+    - source: 'eprintln!("error: {}", e)'
+      style: primary
+      start: 0
+      end: 25
+  print!("processing...");:
+    labels:
+    - source: print!("processing...")
+      style: primary
+      start: 0
+      end: 23
+  println!("server started");:
+    labels:
+    - source: println!("server started")
+      style: primary
+      start: 0
+      end: 26

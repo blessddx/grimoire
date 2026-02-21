@@ -1,0 +1,23 @@
+id: no-swallowed-exception
+valid:
+  - |
+    try:
+        do_something()
+    except ValueError:
+        logger.warning("failed")
+  - |
+    try:
+        do_something()
+    except OSError:
+        pass  # intentional: file may not exist
+invalid:
+  - |
+    try:
+        do_something()
+    except:
+        pass
+  - |
+    try:
+        do_something()
+    except Exception:
+        pass

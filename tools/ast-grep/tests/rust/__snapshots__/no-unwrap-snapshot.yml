@@ -1,0 +1,20 @@
+id: no-unwrap
+snapshots:
+  file.read_to_string(&mut buf).unwrap();:
+    labels:
+    - source: file.read_to_string(&mut buf).unwrap()
+      style: primary
+      start: 0
+      end: 38
+  let name = map.get("key").unwrap();:
+    labels:
+    - source: map.get("key").unwrap()
+      style: primary
+      start: 11
+      end: 34
+  let x = some_result().unwrap();:
+    labels:
+    - source: some_result().unwrap()
+      style: primary
+      start: 8
+      end: 30

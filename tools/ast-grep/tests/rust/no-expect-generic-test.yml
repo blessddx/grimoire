@@ -1,0 +1,8 @@
+id: no-expect-generic
+valid:
+  - 'let conn = pool.get().expect("database pool should have available connections");'
+  - 'let cfg = Config::load().expect("config file must exist at /etc/app.toml");'
+invalid:
+  - 'let x = result.expect("failed");'
+  - 'let x = result.expect("error");'
+  - 'let x = option.expect("unexpected");'

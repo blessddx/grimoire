@@ -1,0 +1,7 @@
+id: no-unwrap
+language: rust
+severity: warning
+message: Avoid .unwrap() — use '?' operator or proper error handling to prevent panics.
+note: Use '?', unwrap_or(), unwrap_or_default(), or match/if-let for safe error handling.
+rule:
+  pattern: $EXPR.unwrap()

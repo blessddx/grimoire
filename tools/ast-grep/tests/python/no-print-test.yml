@@ -1,0 +1,8 @@
+id: no-print
+valid:
+  - 'logging.info("request received")'
+  - 'logger.debug("processing %s", item)'
+invalid:
+  - 'print("debug output")'
+  - 'print(f"user: {user}")'
+  - 'print("Error:", str(e))'

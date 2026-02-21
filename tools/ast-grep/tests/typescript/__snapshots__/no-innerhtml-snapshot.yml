@@ -1,0 +1,14 @@
+id: no-innerhtml
+snapshots:
+  document.body.innerHTML = html:
+    labels:
+    - source: document.body.innerHTML = html
+      style: primary
+      start: 0
+      end: 30
+  el.innerHTML = userInput:
+    labels:
+    - source: el.innerHTML = userInput
+      style: primary
+      start: 0
+      end: 24

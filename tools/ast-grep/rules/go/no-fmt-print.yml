@@ -1,0 +1,10 @@
+id: no-fmt-print
+language: go
+severity: warning
+message: Use structured logging (slog, zap, zerolog) instead of fmt.Print/Println/Printf.
+note: fmt.Print* output is unstructured, unleveled, and goes to stdout — use a logger.
+rule:
+  kind: call_expression
+  has:
+    kind: selector_expression
+    regex: ^fmt\.(Print|Println|Printf)$

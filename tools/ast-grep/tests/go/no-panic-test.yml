@@ -1,0 +1,10 @@
+id: no-panic
+valid:
+  - 'return fmt.Errorf("unexpected state: %v", s)'
+  - |
+    if err != nil {
+      return err
+    }
+invalid:
+  - 'panic("unexpected state")'
+  - 'panic(fmt.Sprintf("invalid config: %v", cfg))'

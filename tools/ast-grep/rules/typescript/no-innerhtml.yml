@@ -1,0 +1,9 @@
+id: no-innerhtml
+language: tsx
+severity: error
+message: Avoid innerHTML and dangerouslySetInnerHTML — they create XSS vulnerabilities.
+note: Use safe DOM APIs or sanitize content before rendering.
+rule:
+  any:
+    - pattern: $EL.innerHTML = $VAL
+    - pattern: "dangerouslySetInnerHTML={{ __html: $VAL }}"

@@ -1,0 +1,7 @@
+id: no-as-any
+language: tsx
+severity: error
+message: Avoid 'as any' type assertions — they hide type errors and defeat TypeScript's safety.
+note: Use a specific type, 'as unknown', or fix the underlying type mismatch.
+rule:
+  pattern: $EXPR as any

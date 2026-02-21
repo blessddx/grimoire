@@ -1,0 +1,16 @@
+ruleDirs:
+  - tools/ast-grep/rules/typescript
+  - tools/ast-grep/rules/go
+  - tools/ast-grep/rules/rust
+  - tools/ast-grep/rules/python
+
+testConfigs:
+  - testDir: tools/ast-grep/tests/typescript
+  - testDir: tools/ast-grep/tests/go
+  - testDir: tools/ast-grep/tests/rust
+  - testDir: tools/ast-grep/tests/python
+
+languageGlobs:
+  tsx:
+    - "*.ts"
+    - "*.tsx"

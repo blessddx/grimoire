@@ -1,0 +1,9 @@
+id: no-console-log
+valid:
+  - console.warn("deprecated")
+  - console.error("failed to load")
+  - logger.info("request received")
+invalid:
+  - console.log("debug")
+  - console.log(data)
+  - console.log("user:", user, "action:", action)

@@ -1,0 +1,12 @@
+id: no-err-silent
+valid:
+  - |
+    err := doSomething()
+    if err != nil {
+      return err
+    }
+  - |
+    result, err := doSomething()
+invalid:
+  - "_ = doSomething()"
+  - "_ = os.Remove(path)"

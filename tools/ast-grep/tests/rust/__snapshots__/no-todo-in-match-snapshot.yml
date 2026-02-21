@@ -1,0 +1,30 @@
+id: no-todo-in-match
+snapshots:
+  ? |
+    match action {
+        Action::Create => create(),
+        Action::Delete => unimplemented!("delete not yet supported"),
+    }
+  : labels:
+    - source: Action::Delete => unimplemented!("delete not yet supported"),
+      style: primary
+      start: 51
+      end: 112
+    - source: unimplemented!("delete not yet supported")
+      style: secondary
+      start: 69
+      end: 111
+  ? |
+    match status {
+        Status::Active => handle_active(),
+        Status::Inactive => todo!(),
+    }
+  : labels:
+    - source: Status::Inactive => todo!(),
+      style: primary
+      start: 58
+      end: 86
+    - source: todo!()
+      style: secondary
+      start: 78
+      end: 85

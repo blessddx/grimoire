@@ -1,0 +1,18 @@
+id: no-broad-except
+language: python
+severity: warning
+message: Avoid bare 'except' and 'except Exception' — catch specific exception types.
+note: Catching broad exceptions hides bugs and makes debugging difficult.
+rule:
+  kind: except_clause
+  any:
+    - not:
+        has:
+          stopBy: neighbor
+          any:
+            - kind: identifier
+            - kind: as_pattern
+    - has:
+        stopBy: neighbor
+        kind: identifier
+        regex: ^Exception$

@@ -1,0 +1,21 @@
+id: no-unsafe-block
+snapshots:
+  ? |
+    let val = unsafe { *raw_ptr };
+  : labels:
+    - source: unsafe { *raw_ptr }
+      style: primary
+      start: 10
+      end: 29
+  ? |
+    unsafe {
+        std::ptr::write(ptr, value);
+    }
+  : labels:
+    - source: |-
+        unsafe {
+            std::ptr::write(ptr, value);
+        }
+      style: primary
+      start: 0
+      end: 43

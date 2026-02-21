@@ -1,0 +1,24 @@
+id: no-sql-string-concat
+snapshots:
+  ? |
+    q := "DELETE FROM sessions WHERE user_id = " + uid
+  : labels:
+    - source: '"DELETE FROM sessions WHERE user_id = " + uid'
+      style: primary
+      start: 5
+      end: 50
+    - source: '"DELETE FROM sessions WHERE user_id = "'
+      style: secondary
+      start: 5
+      end: 44
+  ? |
+    query := "SELECT * FROM users WHERE name = '" + name + "'"
+  : labels:
+    - source: '"SELECT * FROM users WHERE name = ''" + name + "''"'
+      style: primary
+      start: 9
+      end: 58
+    - source: '"''"'
+      style: secondary
+      start: 55
+      end: 58

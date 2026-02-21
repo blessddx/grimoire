@@ -1,0 +1,22 @@
+id: no-panic
+snapshots:
+  panic("unexpected state"):
+    labels:
+    - source: panic("unexpected state")
+      style: primary
+      start: 0
+      end: 25
+    - source: panic
+      style: secondary
+      start: 0
+      end: 5
+  'panic(fmt.Sprintf("invalid config: %v", cfg))':
+    labels:
+    - source: 'panic(fmt.Sprintf("invalid config: %v", cfg))'
+      style: primary
+      start: 0
+      end: 45
+    - source: panic
+      style: secondary
+      start: 0
+      end: 5

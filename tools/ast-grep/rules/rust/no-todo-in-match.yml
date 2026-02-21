@@ -1,0 +1,12 @@
+id: no-todo-in-match
+language: rust
+severity: error
+message: Do not use todo!()/unimplemented!() in match arms — handle all variants properly.
+note: Implement the match arm or return a meaningful error.
+rule:
+  kind: match_arm
+  has:
+    any:
+      - pattern: todo!($$$ARGS)
+      - pattern: unimplemented!($$$ARGS)
+    stopBy: end

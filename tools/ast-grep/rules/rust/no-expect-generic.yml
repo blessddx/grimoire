@@ -1,0 +1,10 @@
+id: no-expect-generic
+language: rust
+severity: warning
+message: Use a descriptive .expect() message — generic messages like "failed" make debugging harder.
+note: Explain what failed and why, e.g. .expect("database connection should be initialized").
+rule:
+  pattern: $EXPR.expect($MSG)
+constraints:
+  MSG:
+    regex: ^"(failed|error|err|failure|bug|oops|impossible|unreachable|should not happen|unexpected|panic|todo|fixme)"$

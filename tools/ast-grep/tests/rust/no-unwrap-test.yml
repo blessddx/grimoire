@@ -1,0 +1,9 @@
+id: no-unwrap
+valid:
+  - let x = some_result()?;
+  - let x = option.unwrap_or(default);
+  - let x = option.unwrap_or_default();
+invalid:
+  - let x = some_result().unwrap();
+  - let name = map.get("key").unwrap();
+  - file.read_to_string(&mut buf).unwrap();

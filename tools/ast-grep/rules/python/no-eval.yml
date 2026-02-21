@@ -1,0 +1,9 @@
+id: no-eval
+language: python
+severity: error
+message: Do not use eval() or exec() — they enable code injection attacks.
+note: Use ast.literal_eval() for parsing literals, or find a safer alternative.
+rule:
+  any:
+    - pattern: eval($$$ARGS)
+    - pattern: exec($$$ARGS)

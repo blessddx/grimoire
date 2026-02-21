@@ -1,0 +1,7 @@
+id: no-unsafe-block
+language: rust
+severity: hint
+message: Unsafe block detected — ensure safety invariants are documented and reviewed.
+note: Add a SAFETY comment explaining why this unsafe block is sound.
+rule:
+  kind: unsafe_block

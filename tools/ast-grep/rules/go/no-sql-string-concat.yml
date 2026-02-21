@@ -1,0 +1,10 @@
+id: no-sql-string-concat
+language: go
+severity: error
+message: Do not concatenate strings in SQL queries — use parameterized queries to prevent SQL injection.
+note: Use db.Query("SELECT ... WHERE id = ?", id) or a query builder.
+rule:
+  kind: binary_expression
+  regex: (?i)(SELECT|INSERT|UPDATE|DELETE|FROM|WHERE)
+  has:
+    kind: interpreted_string_literal

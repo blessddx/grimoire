@@ -1,0 +1,7 @@
+id: no-non-null-assertion
+language: tsx
+severity: warning
+message: Avoid non-null assertions (!) — they bypass null safety and can cause runtime crashes.
+note: Use optional chaining (?.), nullish coalescing (??), or a proper null check instead.
+rule:
+  kind: non_null_expression

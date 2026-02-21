@@ -1,0 +1,14 @@
+id: no-empty-critical-section
+valid:
+  - |
+    mu.Lock()
+    count++
+    mu.Unlock()
+  - |
+    mu.Lock()
+    defer mu.Unlock()
+    return value
+invalid:
+  - |
+    mu.Lock()
+    mu.Unlock()

@@ -1,0 +1,7 @@
+id: no-console-log
+language: tsx
+severity: warning
+message: Remove console.log — use a proper logger or remove before committing.
+note: console.warn and console.error are allowed for legitimate warnings and errors.
+rule:
+  pattern: console.log($$$ARGS)

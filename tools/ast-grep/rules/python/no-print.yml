@@ -1,0 +1,7 @@
+id: no-print
+language: python
+severity: warning
+message: Use the logging module instead of print() in production code.
+note: Replace with logging.info(), logging.debug(), etc. for proper log management.
+rule:
+  pattern: print($$$ARGS)

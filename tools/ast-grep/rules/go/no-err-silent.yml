@@ -1,0 +1,7 @@
+id: no-err-silent
+language: go
+severity: error
+message: Do not silently discard errors — handle them or propagate them.
+note: If the error is truly ignorable, add a comment explaining why.
+rule:
+  pattern: "_ = $FN($$$ARGS)"

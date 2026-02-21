@@ -1,0 +1,26 @@
+id: no-swallowed-exception
+language: python
+severity: error
+message: "Do not swallow exceptions with 'except: pass' — at minimum log the error."
+note: Silently swallowing exceptions hides bugs and makes debugging nearly impossible.
+rule:
+  kind: except_clause
+  all:
+    - any:
+        - not:
+            has:
+              stopBy: neighbor
+              any:
+                - kind: identifier
+                - kind: as_pattern
+        - has:
+            stopBy: neighbor
+            kind: identifier
+            regex: ^Exception$
+    - has:
+        kind: block
+        has:
+          kind: pass_statement
+        not:
+          has:
+            kind: expression_statement

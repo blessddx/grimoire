@@ -1,0 +1,11 @@
+id: no-as-any
+valid:
+  - "const x = value as unknown"
+  - "const x = value as string"
+  - "const x: any = value"
+  - "const x = value as Record<string, unknown>"
+invalid:
+  - "const x = value as any"
+  - "return response.data as any"
+  - "const items = (obj as any).list"
+  - "fetchData() as any"

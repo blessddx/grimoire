@@ -1,0 +1,30 @@
+id: no-broad-except
+snapshots:
+  ? |
+    try:
+        do_something()
+    except Exception:
+        handle_error()
+  : labels:
+    - source: |-
+        except Exception:
+            handle_error()
+      style: primary
+      start: 24
+      end: 60
+    - source: Exception
+      style: secondary
+      start: 31
+      end: 40
+  ? |
+    try:
+        do_something()
+    except:
+        handle_error()
+  : labels:
+    - source: |-
+        except:
+            handle_error()
+      style: primary
+      start: 24
+      end: 50

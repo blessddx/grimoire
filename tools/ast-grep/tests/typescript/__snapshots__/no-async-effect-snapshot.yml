@@ -1,0 +1,66 @@
+id: no-async-effect
+snapshots:
+  ? |
+    useEffect(async () => {
+      await fetchData()
+    }, [])
+  : labels:
+    - source: |-
+        useEffect(async () => {
+          await fetchData()
+        }, [])
+      style: primary
+      start: 0
+      end: 50
+    - source: useEffect
+      style: secondary
+      start: 0
+      end: 9
+    - source: |-
+        async () => {
+          await fetchData()
+        }
+      style: secondary
+      start: 10
+      end: 45
+    - source: |-
+        (async () => {
+          await fetchData()
+        }, [])
+      style: secondary
+      start: 9
+      end: 50
+  ? |
+    useEffect(async () => {
+      const data = await fetch("/api")
+      setData(data)
+    }, [])
+  : labels:
+    - source: |-
+        useEffect(async () => {
+          const data = await fetch("/api")
+          setData(data)
+        }, [])
+      style: primary
+      start: 0
+      end: 81
+    - source: useEffect
+      style: secondary
+      start: 0
+      end: 9
+    - source: |-
+        async () => {
+          const data = await fetch("/api")
+          setData(data)
+        }
+      style: secondary
+      start: 10
+      end: 76
+    - source: |-
+        (async () => {
+          const data = await fetch("/api")
+          setData(data)
+        }, [])
+      style: secondary
+      start: 9
+      end: 81

@@ -1,0 +1,14 @@
+id: no-err-silent
+snapshots:
+  _ = doSomething():
+    labels:
+    - source: _ = doSomething()
+      style: primary
+      start: 0
+      end: 17
+  _ = os.Remove(path):
+    labels:
+    - source: _ = os.Remove(path)
+      style: primary
+      start: 0
+      end: 19

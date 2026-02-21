@@ -1,0 +1,9 @@
+id: no-non-null-assertion
+valid:
+  - const x = obj?.name
+  - const x = obj ?? fallback
+  - if (obj) { use(obj.name) }
+invalid:
+  - const x = obj!.name
+  - return items!.length
+  - document.getElementById("app")!.textContent

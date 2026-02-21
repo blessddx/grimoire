@@ -1,0 +1,28 @@
+id: no-fmt-print
+valid:
+  - |
+    package main
+    func main() {
+      slog.Info("request received", "path", r.URL.Path)
+    }
+  - |
+    package main
+    func main() {
+      log.Printf("starting server on %s", addr)
+    }
+invalid:
+  - |
+    package main
+    func main() {
+      fmt.Println("starting server")
+    }
+  - |
+    package main
+    func main() {
+      fmt.Printf("request: %v\n", req)
+    }
+  - |
+    package main
+    func main() {
+      fmt.Print("done")
+    }

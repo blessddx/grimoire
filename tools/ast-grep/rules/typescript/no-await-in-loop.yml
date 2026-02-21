@@ -1,0 +1,19 @@
+id: no-await-in-loop
+language: tsx
+severity: warning
+message: Avoid await inside loops — sequential awaits cause waterfall performance issues.
+note: Use Promise.all(), Promise.allSettled(), or batch the operations.
+rule:
+  any:
+    - kind: for_statement
+      has:
+        kind: await_expression
+        stopBy: end
+    - kind: for_in_statement
+      has:
+        kind: await_expression
+        stopBy: end
+    - kind: while_statement
+      has:
+        kind: await_expression
+        stopBy: end

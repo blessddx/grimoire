@@ -1,0 +1,66 @@
+id: no-fmt-print
+snapshots:
+  fmt.Print("done"):
+    labels:
+    - source: fmt.Print("done")
+      style: primary
+      start: 0
+      end: 17
+  'fmt.Printf("request: %v\n", req)':
+    labels:
+    - source: 'fmt.Printf("request: %v\n", req)'
+      style: primary
+      start: 0
+      end: 32
+    - source: fmt.Printf
+      style: secondary
+      start: 0
+      end: 10
+  fmt.Println("starting server"):
+    labels:
+    - source: fmt.Println("starting server")
+      style: primary
+      start: 0
+      end: 30
+  ? |
+    package main
+    func main() {
+      fmt.Print("done")
+    }
+  : labels:
+    - source: fmt.Print("done")
+      style: primary
+      start: 29
+      end: 46
+    - source: fmt.Print
+      style: secondary
+      start: 29
+      end: 38
+  ? |
+    package main
+    func main() {
+      fmt.Printf("request: %v\n", req)
+    }
+  : labels:
+    - source: 'fmt.Printf("request: %v\n", req)'
+      style: primary
+      start: 29
+      end: 61
+    - source: fmt.Printf
+      style: secondary
+      start: 29
+      end: 39
+  ? |
+    package main
+    func main() {
+      fmt.Println("starting server")
+    }
+  : labels:
+    - source: fmt.Println("starting server")
+      style: primary
+      start: 29
+      end: 59
+    - source: fmt.Println
+      style: secondary
+      start: 29
+      end: 40

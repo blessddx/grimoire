@@ -1,0 +1,50 @@
+id: no-await-in-loop
+snapshots:
+  ? |
+    for (const id of ids) {
+      const data = await fetch(id)
+    }
+  : labels:
+    - source: |-
+        for (const id of ids) {
+          const data = await fetch(id)
+        }
+      style: primary
+      start: 0
+      end: 56
+    - source: await fetch(id)
+      style: secondary
+      start: 39
+      end: 54
+  ? |
+    for (let i = 0; i < items.length; i++) {
+      await process(items[i])
+    }
+  : labels:
+    - source: |-
+        for (let i = 0; i < items.length; i++) {
+          await process(items[i])
+        }
+      style: primary
+      start: 0
+      end: 68
+    - source: await process(items[i])
+      style: secondary
+      start: 43
+      end: 66
+  ? |
+    while (hasMore) {
+      const page = await fetchPage(cursor)
+    }
+  : labels:
+    - source: |-
+        while (hasMore) {
+          const page = await fetchPage(cursor)
+        }
+      style: primary
+      start: 0
+      end: 58
+    - source: await fetchPage(cursor)
+      style: secondary
+      start: 33
+      end: 56

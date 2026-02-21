@@ -1,0 +1,20 @@
+id: no-print
+snapshots:
+  print("Error:", str(e)):
+    labels:
+    - source: print("Error:", str(e))
+      style: primary
+      start: 0
+      end: 23
+  print("debug output"):
+    labels:
+    - source: print("debug output")
+      style: primary
+      start: 0
+      end: 21
+  'print(f"user: {user}")':
+    labels:
+    - source: 'print(f"user: {user}")'
+      style: primary
+      start: 0
+      end: 22
