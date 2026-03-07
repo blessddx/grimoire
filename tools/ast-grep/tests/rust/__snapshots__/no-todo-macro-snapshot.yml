@@ -1,0 +1,29 @@
+id: no-todo-macro
+snapshots:
+  ? |
+    fn handle() {
+        todo!()
+    }
+  : labels:
+    - source: todo!()
+      style: primary
+      start: 18
+      end: 25
+  ? |
+    fn handle() {
+        unimplemented!()
+    }
+  : labels:
+    - source: unimplemented!()
+      style: primary
+      start: 18
+      end: 34
+  ? |
+    fn process() {
+        todo!("implement later")
+    }
+  : labels:
+    - source: todo!("implement later")
+      style: primary
+      start: 19
+      end: 43

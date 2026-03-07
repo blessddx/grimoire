@@ -58,7 +58,7 @@ Add to `~/.claude/settings.json` (user-level) or `.claude/settings.json` (projec
 | `~/.pypirc` | PyPI upload credentials |
 | `~/.gem/credentials` | RubyGems API key |
 | `~/.cargo/credentials*` | crates.io API token |
-| `**/.env*` | Environment files with secrets |
+| `**/.env`, `**/.env.local`, `**/.env.production` | Environment files with secrets |
 | `~/.bashrc` etc. | Shell configs — blocks backdoor planting |
 
 ## Why Shell Config Edits Are Blocked

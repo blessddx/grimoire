@@ -24,10 +24,10 @@ grimoire/
 │   ├── ast-grep-hook.md   # Pre-commit lint hook setup
 │   └── push-protection.md # Git push hook (placeholder)
 └── tools/
-    ├── ast-grep/          # 34 code quality rules (Elixir/Go/Nix/Python/Rust/TypeScript)
+    ├── ast-grep/          # 35 code quality rules (Elixir/Go/Nix/Python/Rust/TypeScript)
     │   ├── rules/{lang}/
     │   ├── tests/{lang}/
-    │   └── utils/
+    │   └── bin/           # lint-rules, scan-changed, report-coverage, generate-rule
     └── stress-test/       # Adversarial plan stress-testing skill
         ├── SKILL.md
         └── README.md
@@ -75,5 +75,6 @@ All inline standards apply when working in this repo. Read and follow:
 
 - Standards are Markdown files — edit directly
 - ast-grep rules are YAML — run `sg test` after changes to verify
+- Run `tools/ast-grep/bin/lint-rules` to validate rule hygiene (parity, naming, counts)
 - The `sgconfig.yml` at root configures rule and test directories
 - No build step, no dependencies beyond ast-grep for the linting rules

@@ -1,0 +1,109 @@
+#!/usr/bin/env fish
+# report-coverage — Show per-language rule coverage by category
+#
+# Reads rule files and categorizes by keyword analysis of id/message fields.
+# Categories: security, reliability, style
+
+set -l rules_dir (path resolve (status dirname)/../rules)
+
+function yaml_scalar --argument-names key file
+    set -l raw (string match -r "^[[:space:]]*$key:[[:space:]]*(.+)" < $file)[2]
+    set raw (string replace -r '[[:space:]]+#.*$' '' -- $raw)
+    echo (string trim --chars="'\"" -- (string trim -- $raw))
+end
+
+# Category detection based on rule id and message keywords
+function categorize_rule
+    set -l id $argv[1]
+    set -l message $argv[2]
+    set -l combined "$id $message"
+
+    if string match -riq '(secret|credential|password|injection|xss|innerhtml|unsafe|fragment|atom|sql|fetch.without)' $combined
+        echo "security"
+    else if string match -riq '(error|except|swallow|panic|unwrap|todo|unimplemented|empty.critical|err.silent)' $combined
+        echo "reliability"
+    else
+        echo "style"
+    end
+end
+
+echo "ast-grep Rule Coverage Report"
+echo "=============================="
+echo ""
+
+set -l total 0
+set -l total_security 0
+set -l total_reliability 0
+set -l total_style 0
+
+for lang_dir in $rules_dir/*/
+    set -l lang (path basename $lang_dir)
+    set -l count 0
+    set -l security 0
+    set -l reliability 0
+    set -l style 0
+
+    for rule_file in $lang_dir*.yml
+        set count (math $count + 1)
+        set -l id (yaml_scalar id $rule_file)
+        set -l message (yaml_scalar message $rule_file)
+
+        if test -z "$id"
+            echo "WARN: missing id in $rule_file" >&2
+        end
+
+        set -l category (categorize_rule $id $message)
+
+        switch $category
+            case security
+                set security (math $security + 1)
+            case reliability
+                set reliability (math $reliability + 1)
+            case style
+                set style (math $style + 1)
+        end
+    end
+
+    printf "%-12s %2d rules  [security: %d, reliability: %d, style: %d]\n" $lang $count $security $reliability $style
+    set total (math $total + $count)
+    set total_security (math $total_security + $security)
+    set total_reliability (math $total_reliability + $reliability)
+    set total_style (math $total_style + $style)
+end
+
+echo ""
+echo "──────────────────────────────────────────────────────────"
+printf "%-12s %2d rules  [security: %d, reliability: %d, style: %d]\n" "TOTAL" $total $total_security $total_reliability $total_style
+
+# Highlight gaps
+echo ""
+echo "Coverage gaps:"
+set -l found_gap false
+for lang_dir in $rules_dir/*/
+    set -l lang (path basename $lang_dir)
+    set -l has_security false
+    set -l has_reliability false
+
+    for rule_file in $lang_dir*.yml
+        set -l id (yaml_scalar id $rule_file)
+        set -l message (yaml_scalar message $rule_file)
+        set -l category (categorize_rule $id $message)
+        if test "$category" = security
+            set has_security true
+        else if test "$category" = reliability
+            set has_reliability true
+        end
+    end
+
+    if test "$has_security" = false
+        echo "  $lang: no security rules"
+        set found_gap true
+    end
+    if test "$has_reliability" = false
+        echo "  $lang: no reliability rules"
+        set found_gap true
+    end
+end
+if test "$found_gap" = false
+    echo "  (none)"
+end

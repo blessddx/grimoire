@@ -3,6 +3,30 @@ snapshots:
   ? |
     try:
         do_something()
+    except BaseException:
+        pass
+  : labels:
+    - source: |-
+        except BaseException:
+            pass
+      style: primary
+      start: 24
+      end: 54
+    - source: BaseException
+      style: secondary
+      start: 31
+      end: 44
+    - source: pass
+      style: secondary
+      start: 50
+      end: 54
+    - source: pass
+      style: secondary
+      start: 50
+      end: 54
+  ? |
+    try:
+        do_something()
     except Exception:
         pass
   : labels:

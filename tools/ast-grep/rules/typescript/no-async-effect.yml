@@ -7,8 +7,11 @@ rule:
   kind: call_expression
   all:
     - has:
-        kind: identifier
-        regex: ^useEffect$
+        any:
+          - kind: identifier
+            regex: ^useEffect$
+          - kind: member_expression
+            regex: ^React\.useEffect$
     - has:
         kind: arguments
         has:

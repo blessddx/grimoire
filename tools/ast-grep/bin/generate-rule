@@ -1,0 +1,94 @@
+#!/usr/bin/env fish
+# generate-rule — Scaffold a new ast-grep rule with test file
+#
+# Usage:
+#   generate-rule <language> <rule-id> [severity]
+#
+# Example:
+#   generate-rule python no-assert warning
+#   generate-rule go no-log-fatal error
+
+set -l rules_dir (path resolve (status dirname)/../rules)
+set -l tests_dir (path resolve (status dirname)/../tests)
+
+if test (count $argv) -lt 2
+    echo "Usage: generate-rule <language> <rule-id> [severity]"
+    echo ""
+    echo "Languages: elixir, go, nix, python, rust, typescript"
+    echo "Severities: error (default), warning, hint"
+    echo ""
+    echo "Example: generate-rule python no-assert warning"
+    exit 1
+end
+
+set -l lang $argv[1]
+set -l rule_id $argv[2]
+set -l severity (test (count $argv) -ge 3; and echo $argv[3]; or echo "error")
+
+# Validate language
+set -l allowed_langs elixir go nix python rust typescript
+contains -- $lang $allowed_langs; or begin
+    echo "Unsupported language: $lang"
+    echo "Allowed: "(string join ", " $allowed_langs)
+    exit 2
+end
+
+# Validate severity
+contains -- $severity error warning hint; or begin
+    echo "Invalid severity: $severity (use error|warning|hint)"
+    exit 2
+end
+
+# Validate rule ID format
+string match -rq '^[a-z0-9][a-z0-9-]*$' -- $rule_id; or begin
+    echo "Invalid rule id: $rule_id (expected kebab-case, e.g. no-foo-bar)"
+    exit 2
+end
+
+# Map language to ast-grep language identifier
+set -l ast_lang $lang
+if test "$lang" = typescript
+    set ast_lang tsx
+end
+
+set -l rule_file "$rules_dir/$lang/$rule_id.yml"
+set -l test_file "$tests_dir/$lang/$rule_id-test.yml"
+
+if test -e $rule_file -o -e $test_file
+    echo "Rule or test already exists:"
+    test -e $rule_file; and echo "  $rule_file"
+    test -e $test_file; and echo "  $test_file"
+    exit 1
+end
+
+# Create directories if needed
+mkdir -p (path dirname $rule_file)
+mkdir -p (path dirname $test_file)
+
+# Write rule template
+printf 'id: %s
+language: %s
+severity: %s
+message: TODO — describe what this rule catches.
+note: TODO — suggest what to use instead.
+rule:
+  pattern: $TODO($$$ARGS)
+' $rule_id $ast_lang $severity > $rule_file
+
+# Write test template
+printf 'id: %s
+valid:
+  - '"'"'# TODO: add valid (non-matching) examples'"'"'
+invalid:
+  - '"'"'# TODO: add invalid (matching) examples'"'"'
+' $rule_id > $test_file
+
+echo "Created:"
+echo "  Rule: $rule_file"
+echo "  Test: $test_file"
+echo ""
+echo "Next steps:"
+echo "  1. Edit the rule pattern in $rule_file"
+echo "  2. Add valid/invalid test cases in $test_file"
+echo "  3. Run: ast-grep test"
+echo "  4. Run: ast-grep test --update-all  (to generate snapshots)"

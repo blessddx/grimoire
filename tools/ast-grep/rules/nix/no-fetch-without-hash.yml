@@ -1,10 +1,13 @@
 id: no-fetch-without-hash
 language: nix
 severity: error
-message: Pin fetches with a hash — builtins.fetchTarball with a bare URL is not reproducible.
-note: "Use the attrset form: builtins.fetchTarball { url = \"...\"; sha256 = \"...\"; }"
+message: Pin fetches with a hash — bare URL fetches are not reproducible.
+note: "Use the attrset form with sha256, e.g.: builtins.fetchTarball { url = \"...\"; sha256 = \"...\"; }"
 rule:
-  pattern: builtins.fetchTarball $URL
+  any:
+    - pattern: builtins.fetchTarball $URL
+    - pattern: builtins.fetchurl $URL
+    - pattern: fetchTarball $URL
 constraints:
   URL:
     kind: string_expression

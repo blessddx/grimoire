@@ -2,7 +2,7 @@
 
 > **Mode:** Reference | **When:** Security reviews, pre-deploy audits, suspicious code
 
-Two-phase security analysis: grep finds suspects, Codex CLI analyzes them. Combines structural pattern matching (fast, zero false negatives on pattern) with LLM reasoning (understands context, rates severity).
+Two-phase security analysis: grep finds suspects, Codex CLI analyzes them. Combines structural pattern matching (fast, high recall on known patterns) with LLM reasoning (understands context, rates severity).
 
 ---
 

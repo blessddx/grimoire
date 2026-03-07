@@ -1,7 +1,7 @@
 id: no-broad-except
 language: python
 severity: warning
-message: Avoid bare 'except' and 'except Exception' — catch specific exception types.
+message: Avoid bare 'except', 'except Exception', and 'except BaseException' — catch specific exception types.
 note: Catching broad exceptions hides bugs and makes debugging difficult.
 rule:
   kind: except_clause
@@ -15,4 +15,4 @@ rule:
     - has:
         stopBy: neighbor
         kind: identifier
-        regex: ^Exception$
+        regex: ^(Exception|BaseException)$

@@ -1,0 +1,105 @@
+#!/usr/bin/env fish
+# lint-rules — Validate ast-grep rule hygiene
+#
+# Checks:
+#   1. Every rule file has a corresponding test file
+#   2. Every test file has a corresponding rule file
+#   3. Rule IDs match filenames
+#   4. Severity is one of: error, warning, hint
+#   5. Rule count in docs matches actual file count
+#   6. Rule IDs are unique across all languages
+
+set -l rules_dir (path resolve (status dirname)/../rules)
+set -l tests_dir (path resolve (status dirname)/../tests)
+set -l root_dir (path resolve (status dirname)/../../..)
+set -l errors 0
+
+function yaml_scalar --argument-names key file
+    set -l raw (string match -r "^[[:space:]]*$key:[[:space:]]*(.+)" < $file)[2]
+    set raw (string replace -r '[[:space:]]+#.*$' '' -- $raw)
+    echo (string trim --chars="'\"" -- (string trim -- $raw))
+end
+
+echo "Validating ast-grep rules..."
+echo ""
+
+# 1 & 2: Test parity
+for lang_dir in $rules_dir/*/
+    set -l lang (path basename $lang_dir)
+    for rule_file in $lang_dir*.yml
+        set -l rule_name (string replace -r '\.yml$' '' (path basename $rule_file))
+        set -l test_file "$tests_dir/$lang/$rule_name-test.yml"
+        if not test -f $test_file
+            echo "  MISSING TEST: $lang/$rule_name (expected $test_file)"
+            set errors (math $errors + 1)
+        end
+    end
+end
+
+for lang_dir in $tests_dir/*/
+    set -l lang (path basename $lang_dir)
+    for test_file in $lang_dir*-test.yml
+        set -l test_name (path basename $test_file | string replace -r -- '-test\.yml$' '')
+        set -l rule_file "$rules_dir/$lang/$test_name.yml"
+        if not test -f $rule_file
+            echo "  ORPHAN TEST: $lang/$test_name (no matching rule)"
+            set errors (math $errors + 1)
+        end
+    end
+end
+
+# 3: Rule IDs match filenames
+for rule_file in $rules_dir/*/*.yml
+    set -l expected_id (string replace -r '\.yml$' '' (path basename $rule_file))
+    set -l actual_id (yaml_scalar id $rule_file)
+    if test -z "$actual_id"
+        echo "  MISSING ID: $rule_file"
+        set errors (math $errors + 1)
+    else if test "$expected_id" != "$actual_id"
+        echo "  ID MISMATCH: $rule_file (file=$expected_id, id=$actual_id)"
+        set errors (math $errors + 1)
+    end
+end
+
+# 4: Valid severities
+for rule_file in $rules_dir/*/*.yml
+    set -l severity (yaml_scalar severity $rule_file)
+    if not contains $severity error warning hint
+        echo "  BAD SEVERITY: $rule_file (got '$severity')"
+        set errors (math $errors + 1)
+    end
+end
+
+# 5: Doc count matches
+set -l actual_count (count $rules_dir/*/*.yml)
+for doc in $root_dir/CLAUDE.md $root_dir/README.md
+    if test -f $doc
+        set -l doc_counts (string match -r '(\d+) code quality rules' < $doc)[2]
+        if test -n "$doc_counts"; and test "$doc_counts" != "$actual_count"
+            echo "  COUNT DRIFT: $doc says $doc_counts rules, actual is $actual_count"
+            set errors (math $errors + 1)
+        end
+    end
+end
+
+# 6: Unique IDs
+set -l all_ids
+for rule_file in $rules_dir/*/*.yml
+    set -l id (yaml_scalar id $rule_file)
+    if test -z "$id"
+        continue
+    end
+    if contains $id $all_ids
+        echo "  DUPLICATE ID: $id in $rule_file"
+        set errors (math $errors + 1)
+    end
+    set -a all_ids $id
+end
+
+echo ""
+if test $errors -gt 0
+    echo "FAIL: $errors issue(s) found"
+    exit 1
+else
+    echo "OK: $actual_count rules, all checks passed"
+end

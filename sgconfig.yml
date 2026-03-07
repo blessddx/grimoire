@@ -14,6 +14,16 @@ testConfigs:
   - testDir: tools/ast-grep/tests/elixir
   - testDir: tools/ast-grep/tests/nix
 
+excludePatterns:
+  - node_modules
+  - dist
+  - build
+  - vendor
+  - _build
+  - deps
+  - .elixir_ls
+  - result
+
 languageGlobs:
   tsx:
     - "*.ts"

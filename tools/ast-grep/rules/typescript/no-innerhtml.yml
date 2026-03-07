@@ -1,9 +1,11 @@
 id: no-innerhtml
 language: tsx
 severity: error
-message: Avoid innerHTML and dangerouslySetInnerHTML — they create XSS vulnerabilities.
-note: Use safe DOM APIs or sanitize content before rendering.
+message: Avoid innerHTML, outerHTML, and dangerouslySetInnerHTML — they create XSS vulnerabilities.
+note: Use safe DOM APIs (textContent, createElement) or sanitize content before rendering.
 rule:
   any:
     - pattern: $EL.innerHTML = $VAL
+    - pattern: $EL.outerHTML = $VAL
+    - pattern: $EL.insertAdjacentHTML($$$ARGS)
     - pattern: "dangerouslySetInnerHTML={{ __html: $VAL }}"

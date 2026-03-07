@@ -1,6 +1,56 @@
 id: no-sql-string-concat
 snapshots:
   ? |
+    package main
+    func main() {
+      q := "DELETE FROM sessions WHERE user_id = " + uid
+    }
+  : labels:
+    - source: '"DELETE FROM sessions WHERE user_id = " + uid'
+      style: primary
+      start: 34
+      end: 79
+    - source: '"DELETE FROM sessions WHERE user_id = "'
+      style: secondary
+      start: 34
+      end: 73
+  ? |
+    package main
+    func main() {
+      q := fmt.Sprintf("SELECT * FROM users WHERE id = %s", userID)
+    }
+  : labels:
+    - source: fmt.Sprintf("SELECT * FROM users WHERE id = %s", userID)
+      style: primary
+      start: 34
+      end: 90
+    - source: fmt.Sprintf
+      style: secondary
+      start: 34
+      end: 45
+    - source: '"SELECT * FROM users WHERE id = %s"'
+      style: secondary
+      start: 46
+      end: 81
+    - source: ("SELECT * FROM users WHERE id = %s", userID)
+      style: secondary
+      start: 45
+      end: 90
+  ? |
+    package main
+    func main() {
+      query := "SELECT * FROM users WHERE name = '" + name + "'"
+    }
+  : labels:
+    - source: '"SELECT * FROM users WHERE name = ''" + name + "''"'
+      style: primary
+      start: 38
+      end: 87
+    - source: '"''"'
+      style: secondary
+      start: 84
+      end: 87
+  ? |
     q := "DELETE FROM sessions WHERE user_id = " + uid
   : labels:
     - source: '"DELETE FROM sessions WHERE user_id = " + uid'

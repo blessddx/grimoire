@@ -1,6 +1,36 @@
 id: no-async-effect
 snapshots:
   ? |
+    React.useEffect(async () => {
+      await fetchData()
+    }, [])
+  : labels:
+    - source: |-
+        React.useEffect(async () => {
+          await fetchData()
+        }, [])
+      style: primary
+      start: 0
+      end: 56
+    - source: React.useEffect
+      style: secondary
+      start: 0
+      end: 15
+    - source: |-
+        async () => {
+          await fetchData()
+        }
+      style: secondary
+      start: 16
+      end: 51
+    - source: |-
+        (async () => {
+          await fetchData()
+        }, [])
+      style: secondary
+      start: 15
+      end: 56
+  ? |
     useEffect(async () => {
       await fetchData()
     }, [])

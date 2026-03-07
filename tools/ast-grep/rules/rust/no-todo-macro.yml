@@ -1,0 +1,9 @@
+id: no-todo-macro
+language: rust
+severity: warning
+message: Remove todo!()/unimplemented!() before committing — handle the case or return an error.
+note: These macros panic at runtime. Replace with proper error handling or implement the logic.
+rule:
+  any:
+    - pattern: todo!($$$ARGS)
+    - pattern: unimplemented!($$$ARGS)

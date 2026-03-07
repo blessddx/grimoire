@@ -39,13 +39,9 @@ For non-agent workflows, add a standard git pre-commit hook:
 #!/usr/bin/env bash
 # .git/hooks/pre-commit
 
-VIOLATIONS=$(sg scan -c ~/grimoire/sgconfig.yml . 2>&1)
-
-if [ -n "$VIOLATIONS" ]; then
-  echo "ast-grep violations found:"
-  echo "$VIOLATIONS"
+if ! sg scan -c ~/grimoire/sgconfig.yml .; then
   echo ""
-  echo "Fix violations before committing, or use --no-verify to skip (not recommended)."
+  echo "ast-grep violations found. Fix them before committing."
   exit 1
 fi
 ```
@@ -72,6 +68,12 @@ sg scan --rule ~/grimoire/tools/ast-grep/rules/rust/ .
 
 # Python project
 sg scan --rule ~/grimoire/tools/ast-grep/rules/python/ .
+
+# Elixir project
+sg scan --rule ~/grimoire/tools/ast-grep/rules/elixir/ .
+
+# Nix configuration
+sg scan --rule ~/grimoire/tools/ast-grep/rules/nix/ .
 ```
 
 ## Severity Filtering
@@ -79,5 +81,5 @@ sg scan --rule ~/grimoire/tools/ast-grep/rules/python/ .
 ast-grep reports all severities by default. To fail only on errors (skip warnings and hints):
 
 ```bash
-sg scan -c ~/grimoire/sgconfig.yml . 2>&1 | grep -c "error" && exit 1 || exit 0
+sg scan -c ~/grimoire/sgconfig.yml . --error 2>&1 | grep -q "error" && exit 1 || exit 0
 ```

@@ -7,3 +7,5 @@ valid:
     }
 invalid:
   - 'builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz"'
+  - 'builtins.fetchurl "https://example.com/file.tar.gz"'
+  - 'fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz"'

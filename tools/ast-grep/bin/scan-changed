@@ -1,0 +1,77 @@
+#!/usr/bin/env fish
+# scan-changed — Run ast-grep only on files changed in git
+#
+# Usage:
+#   scan-changed              # scan staged + unstaged changes
+#   scan-changed --staged     # scan only staged files
+#   scan-changed --branch     # scan files changed since branching from default branch
+
+set -l mode working
+
+# Preflight checks
+git rev-parse --show-toplevel >/dev/null 2>&1; or begin
+    echo "Not inside a git repository."
+    exit 1
+end
+
+set -l sgconfig ~/grimoire/sgconfig.yml
+test -f $sgconfig; or begin
+    echo "Missing config: $sgconfig"
+    exit 1
+end
+
+type -q sg; or begin
+    echo "'sg' (ast-grep) not found in PATH."
+    exit 127
+end
+
+for arg in $argv
+    switch $arg
+        case --staged
+            set mode staged
+        case --branch
+            set mode branch
+        case --help -h
+            echo "Usage: scan-changed [--staged|--branch]"
+            echo ""
+            echo "  (default)   Scan staged + unstaged changed files"
+            echo "  --staged    Scan only staged files"
+            echo "  --branch    Scan files changed since diverging from default branch"
+            exit 0
+        case '*'
+            echo "Unknown option: $arg"
+            echo "Usage: scan-changed [--staged|--branch]"
+            exit 2
+    end
+end
+
+set -l files
+
+switch $mode
+    case working
+        set files (git diff --name-only --diff-filter=ACMR 2>/dev/null; git diff --cached --name-only --diff-filter=ACMR 2>/dev/null)
+    case staged
+        set files (git diff --cached --name-only --diff-filter=ACMR 2>/dev/null)
+    case branch
+        # Try to find default branch dynamically
+        set -l default_branch (git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | string replace -r '^origin/' '')
+        test -n "$default_branch"; or set default_branch main
+        set -l base (git merge-base HEAD $default_branch 2>/dev/null)
+        or set base (git merge-base HEAD master 2>/dev/null)
+        if test -z "$base"
+            echo "Could not find merge base with $default_branch or master"
+            exit 1
+        end
+        set files (git diff --name-only --diff-filter=ACMR $base HEAD 2>/dev/null)
+end
+
+if test (count $files) -eq 0
+    echo "No changed files to scan."
+    exit 0
+end
+
+# Deduplicate and scan
+set -l unique_files (printf '%s\n' $files | sort -u)
+
+echo "Scanning "(count $unique_files)" changed file(s)..."
+printf '%s\0' $unique_files | xargs -0 sg scan -c $sgconfig

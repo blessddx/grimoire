@@ -16,11 +16,21 @@ rule:
         - has:
             stopBy: neighbor
             kind: identifier
-            regex: ^Exception$
+            regex: ^(Exception|BaseException)$
     - has:
         kind: block
-        has:
-          kind: pass_statement
-        not:
-          has:
-            kind: expression_statement
+        any:
+          - has:
+              kind: pass_statement
+            not:
+              has:
+                kind: expression_statement
+          - has:
+              kind: expression_statement
+              has:
+                kind: ellipsis
+            not:
+              has:
+                any:
+                  - kind: pass_statement
+                  - kind: return_statement

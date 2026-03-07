@@ -1,0 +1,23 @@
+id: no-todo-macro
+valid:
+  - |
+    fn handle() -> Result<(), Error> {
+        Err(Error::NotImplemented)
+    }
+  - |
+    fn process(x: i32) -> i32 {
+        x + 1
+    }
+invalid:
+  - |
+    fn handle() {
+        todo!()
+    }
+  - |
+    fn process() {
+        todo!("implement later")
+    }
+  - |
+    fn handle() {
+        unimplemented!()
+    }

@@ -19,3 +19,7 @@ invalid:
       const data = await fetch("/api")
       setData(data)
     }, [])
+  - |
+    React.useEffect(async () => {
+      await fetchData()
+    }, [])

@@ -2,6 +2,9 @@ id: no-innerhtml
 valid:
   - el.textContent = userInput
   - <div>{sanitized}</div>
+  - el.setAttribute("class", value)
 invalid:
   - el.innerHTML = userInput
   - document.body.innerHTML = html
+  - el.outerHTML = template
+  - el.insertAdjacentHTML("beforeend", html)
