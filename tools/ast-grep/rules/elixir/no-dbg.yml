@@ -1,0 +1,7 @@
+id: no-dbg
+language: elixir
+severity: warning
+message: Remove dbg() — it prints AST and values to stdout.
+note: "dbg() is a debugging macro (Elixir 1.14+). Remove before committing."
+rule:
+  pattern: dbg($$$ARGS)

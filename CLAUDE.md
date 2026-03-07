@@ -17,13 +17,14 @@ grimoire/
 │   ├── nix.md             # Nix dev environment rules + starter flake
 │   ├── credential-protection.md # Credential filesystem deny rules
 │   ├── changelog-format.md    # Changelog structure and versioning
+│   ├── pickup.md              # Pickup file standard (project state snapshots)
 │   ├── jj-workflow.md     # Jujutsu VCS guardrails
 │   ├── design-engineer.md # UI/UX design engineering prompt
 │   ├── security-scan.md   # grep + codex security analysis
 │   ├── ast-grep-hook.md   # Pre-commit lint hook setup
 │   └── push-protection.md # Git push hook (placeholder)
 └── tools/
-    ├── ast-grep/          # 24 code quality rules (Go/Python/Rust/TypeScript)
+    ├── ast-grep/          # 34 code quality rules (Elixir/Go/Nix/Python/Rust/TypeScript)
     │   ├── rules/{lang}/
     │   ├── tests/{lang}/
     │   └── utils/
@@ -41,7 +42,7 @@ grimoire/
 Standards are split into two modes:
 
 - **Inline** (git-safety, curl-wget-security, nix, credential-protection) — rules that apply to every task. These get referenced or inlined in a project's CLAUDE.md.
-- **Reference** (jj-workflow, design-engineer, changelog-format, security-scan, ast-grep-hook, push-protection) — consulted when the task matches their scope.
+- **Reference** (jj-workflow, design-engineer, changelog-format, pickup, security-scan, ast-grep-hook, push-protection) — consulted when the task matches their scope.
 
 See `standards/README.md` for the full index.
 

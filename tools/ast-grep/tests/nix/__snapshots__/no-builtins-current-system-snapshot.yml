@@ -1,0 +1,8 @@
+id: no-builtins-current-system
+snapshots:
+  system = builtins.currentSystem:
+    labels:
+    - source: builtins.currentSystem
+      style: primary
+      start: 9
+      end: 31

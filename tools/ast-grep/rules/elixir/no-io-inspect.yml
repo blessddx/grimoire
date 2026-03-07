@@ -1,0 +1,7 @@
+id: no-io-inspect
+language: elixir
+severity: warning
+message: Remove IO.inspect — use Logger for production output.
+note: IO.inspect is a debugging tool that dumps values to stdout. Use Logger.debug/info instead.
+rule:
+  pattern: IO.inspect($$$ARGS)

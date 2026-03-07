@@ -1,0 +1,6 @@
+id: no-builtins-current-system
+valid:
+  - 'system = "x86_64-linux"'
+  - 'builtins.attrNames pkgs'
+invalid:
+  - 'system = builtins.currentSystem'

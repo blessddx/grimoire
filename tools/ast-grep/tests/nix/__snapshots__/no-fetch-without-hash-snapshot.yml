@@ -1,0 +1,8 @@
+id: no-fetch-without-hash
+snapshots:
+  builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz":
+    labels:
+    - source: builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz"
+      style: primary
+      start: 0
+      end: 78

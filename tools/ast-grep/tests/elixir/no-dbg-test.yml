@@ -1,0 +1,8 @@
+id: no-dbg
+valid:
+  - 'Logger.debug(inspect(value))'
+  - 'require Logger'
+invalid:
+  - 'dbg(user)'
+  - 'dbg(conn.params)'
+  - 'dbg()'

@@ -1,0 +1,7 @@
+id: no-string-to-atom
+valid:
+  - 'String.to_existing_atom(input)'
+  - 'String.to_integer(value)'
+invalid:
+  - 'String.to_atom(user_input)'
+  - 'String.to_atom("known_value")'

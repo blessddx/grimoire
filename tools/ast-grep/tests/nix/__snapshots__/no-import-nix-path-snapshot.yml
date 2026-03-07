@@ -1,0 +1,22 @@
+id: no-import-nix-path
+snapshots:
+  import <nixpkgs/lib>:
+    labels:
+    - source: import <nixpkgs/lib>
+      style: primary
+      start: 0
+      end: 20
+    - source: <nixpkgs/lib>
+      style: secondary
+      start: 7
+      end: 20
+  import <nixpkgs>:
+    labels:
+    - source: import <nixpkgs>
+      style: primary
+      start: 0
+      end: 16
+    - source: <nixpkgs>
+      style: secondary
+      start: 7
+      end: 16

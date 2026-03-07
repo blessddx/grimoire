@@ -1,0 +1,20 @@
+id: no-io-inspect
+snapshots:
+  IO.inspect(conn.params):
+    labels:
+    - source: IO.inspect(conn.params)
+      style: primary
+      start: 0
+      end: 23
+  'IO.inspect(data, label: "debug")':
+    labels:
+    - source: 'IO.inspect(data, label: "debug")'
+      style: primary
+      start: 0
+      end: 32
+  IO.inspect(user):
+    labels:
+    - source: IO.inspect(user)
+      style: primary
+      start: 0
+      end: 16

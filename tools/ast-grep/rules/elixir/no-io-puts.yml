@@ -1,0 +1,7 @@
+id: no-io-puts
+language: elixir
+severity: warning
+message: Remove IO.puts — use Logger for structured output.
+note: IO.puts writes unstructured text to stdout. Use Logger.info/debug for proper log management.
+rule:
+  pattern: IO.puts($$$ARGS)

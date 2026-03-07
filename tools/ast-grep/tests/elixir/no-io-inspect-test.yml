@@ -1,0 +1,8 @@
+id: no-io-inspect
+valid:
+  - 'Logger.debug("value: #{inspect(x)}")'
+  - 'Logger.info("request received")'
+invalid:
+  - 'IO.inspect(user)'
+  - 'IO.inspect(data, label: "debug")'
+  - 'IO.inspect(conn.params)'

@@ -1,0 +1,9 @@
+id: no-fetch-without-hash
+valid:
+  - |
+    builtins.fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/master.tar.gz";
+      sha256 = "0000000000000000000000000000000000000000000000000000";
+    }
+invalid:
+  - 'builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz"'

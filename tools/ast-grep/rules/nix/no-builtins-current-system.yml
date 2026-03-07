@@ -1,0 +1,7 @@
+id: no-builtins-current-system
+language: nix
+severity: warning
+message: Avoid builtins.currentSystem — it makes derivations impure.
+note: Use the system parameter from flake inputs or flake-utils.lib.eachDefaultSystem.
+rule:
+  pattern: builtins.currentSystem

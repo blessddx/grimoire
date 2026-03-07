@@ -1,0 +1,18 @@
+id: no-unsafe-fragment
+language: elixir
+severity: error
+message: Do not use string interpolation in Ecto fragment — use parameterized placeholders.
+note: "Safe: fragment(\"WHERE id = ?\", ^id). Unsafe: fragment(\"WHERE id = #{id}\")."
+rule:
+  kind: call
+  all:
+    - has:
+        field: target
+        kind: identifier
+        regex: ^fragment$
+    - has:
+        kind: arguments
+        has:
+          kind: string
+          has:
+            kind: interpolation

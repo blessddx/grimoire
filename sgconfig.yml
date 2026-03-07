@@ -3,12 +3,16 @@ ruleDirs:
   - tools/ast-grep/rules/go
   - tools/ast-grep/rules/rust
   - tools/ast-grep/rules/python
+  - tools/ast-grep/rules/elixir
+  - tools/ast-grep/rules/nix
 
 testConfigs:
   - testDir: tools/ast-grep/tests/typescript
   - testDir: tools/ast-grep/tests/go
   - testDir: tools/ast-grep/tests/rust
   - testDir: tools/ast-grep/tests/python
+  - testDir: tools/ast-grep/tests/elixir
+  - testDir: tools/ast-grep/tests/nix
 
 languageGlobs:
   tsx:

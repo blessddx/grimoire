@@ -1,0 +1,6 @@
+id: no-unsafe-fragment
+valid:
+  - 'fragment("WHERE id = ?", ^id)'
+  - 'fragment("lower(?) = ?", ^field, ^value)'
+invalid:
+  - 'fragment("WHERE id = #{id}")'

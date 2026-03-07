@@ -1,0 +1,14 @@
+id: no-string-to-atom
+snapshots:
+  String.to_atom("known_value"):
+    labels:
+    - source: String.to_atom("known_value")
+      style: primary
+      start: 0
+      end: 29
+  String.to_atom(user_input):
+    labels:
+    - source: String.to_atom(user_input)
+      style: primary
+      start: 0
+      end: 26

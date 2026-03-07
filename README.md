@@ -39,7 +39,7 @@ grimoire/
 │   ├── ast-grep-hook.md   # Pre-commit lint hook (reference)
 │   └── push-protection.md # Git push hook (reference, placeholder)
 └── tools/
-    ├── ast-grep/          # 24 code quality rules across 4 languages
+    ├── ast-grep/          # 34 code quality rules across 6 languages
     └── stress-test/       # Adversarial plan stress-testing skill
 ```
 
@@ -56,7 +56,7 @@ See [standards/README.md](standards/README.md) for the full index.
 
 ### ast-grep
 
-24 code quality rules for Go, Python, Rust, and TypeScript. Catches security issues (hardcoded secrets, SQL injection, XSS), reliability bugs (swallowed errors, empty critical sections), and bad practices (print statements, `as any`).
+34 code quality rules for Elixir, Go, Nix, Python, Rust, and TypeScript. Catches security issues (hardcoded secrets, SQL injection, XSS, atom table exhaustion), reliability bugs (swallowed errors, empty critical sections), impure Nix patterns, and bad practices (print statements, `as any`).
 
 ```bash
 # Scan a project with all rules

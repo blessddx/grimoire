@@ -1,0 +1,7 @@
+id: no-io-puts
+valid:
+  - 'Logger.info("server started")'
+  - 'Logger.debug("processing request")'
+invalid:
+  - 'IO.puts("hello world")'
+  - 'IO.puts("Error: #{message}")'

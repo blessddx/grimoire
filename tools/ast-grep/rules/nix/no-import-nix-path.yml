@@ -1,0 +1,10 @@
+id: no-import-nix-path
+language: nix
+severity: warning
+message: Do not use import <path> — use flake inputs for reproducible builds.
+note: Angle-bracket paths depend on NIX_PATH which is impure. Use flake inputs instead.
+rule:
+  kind: apply_expression
+  has:
+    kind: spath_expression
+    stopBy: end

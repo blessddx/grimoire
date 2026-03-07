@@ -1,0 +1,7 @@
+id: no-import-nix-path
+valid:
+  - 'import ./default.nix'
+  - 'import inputs.nixpkgs'
+invalid:
+  - 'import <nixpkgs>'
+  - 'import <nixpkgs/lib>'

@@ -1,0 +1,7 @@
+id: no-string-to-atom
+language: elixir
+severity: error
+message: Use String.to_existing_atom/1 instead — String.to_atom/1 can exhaust the atom table.
+note: Atoms are never garbage collected. Unbounded String.to_atom on user input is a DoS vector (~1M atom limit).
+rule:
+  pattern: String.to_atom($$$ARGS)

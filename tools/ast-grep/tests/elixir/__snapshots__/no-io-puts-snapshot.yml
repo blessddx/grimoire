@@ -1,0 +1,14 @@
+id: no-io-puts
+snapshots:
+  'IO.puts("Error: #{message}")':
+    labels:
+    - source: 'IO.puts("Error: #{message}")'
+      style: primary
+      start: 0
+      end: 28
+  IO.puts("hello world"):
+    labels:
+    - source: IO.puts("hello world")
+      style: primary
+      start: 0
+      end: 22
